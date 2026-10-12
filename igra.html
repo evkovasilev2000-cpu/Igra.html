@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<title>Хвани бутона</title>
+<style>
+  body {
+    background-color: #222;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    overflow: hidden;
+  }
+  h1 { margin-top: 20px; }
+  #btn {
+    position: absolute;
+    left: 100px;
+    top: 200px;
+    width: 120px;
+    height: 50px;
+    font-size: 18px;
+    background-color: green;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<h1>Хвани бутона и спечели!</h1>
+<p id="tekst">Кликни върху бутона. Лесно е :)</p>
+<p>Опити: <span id="broi">0</span></p>
+
+<button id="btn">КЛИКНИ МЕ</button>
+
+<script>
+var btn = document.getElementById("btn");
+var tekst = document.getElementById("tekst");
+var broi = document.getElementById("broi");
+var opiti = 0;
+
+var saobshteniya = [
+  "Почти успя!",
+  "Не ставай смешен, опитай пак",
+  "Бутонът се смее над теб",
+  "Още малко...",
+  "Сигурен ли си, че имаш мишка?",
+  "Само още един опит!",
+  "Това беше близо. Или не."
+];
+
+// бутонът бяга, когато мишката се приближи
+function mestiSe() {
+  var x = Math.random() * (window.innerWidth - 150);
+  var y = Math.random() * (window.innerHeight - 100) + 60;
+  btn.style.left = x + "px";
+  btn.style.top = y + "px";
+}
+
+// мести се още преди да успееш да кликнеш
+btn.onmouseover = function () {
+  mestiSe();
+  opiti = opiti + 1;
+  broi.innerHTML = opiti;
+  var i = Math.floor(Math.random() * saobshteniya.length);
+  tekst.innerHTML = saobshteniya[i];
+};
+
+// ако все пак успее да кликне (на телефон например),
+// пак бяга и не се печели
+btn.onclick = function () {
+  mestiSe();
+  tekst.innerHTML = "Не, не се брои :)";
+};
+</script>
+
+</body>
+</html>
